@@ -1,13 +1,11 @@
 import { adminAuth, adminFirestore } from "@/lib/firebaseAdmin";
 import { NextRequest, NextResponse } from "next/server";
 
-type Params = {
-  params: { id: string };
-};
 
-export async function PUT(req: NextRequest, { params }: Params) {
+
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }>}) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const token = req.headers.get("authorization")?.split("Bearer ")[1];
     if (!token) {
@@ -49,9 +47,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }>}) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const token = req.headers.get("authorization")?.split("Bearer ")[1];
     if (!token) {

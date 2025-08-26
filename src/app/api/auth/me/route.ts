@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
 
     const decoded = await adminAuth.verifyIdToken(token);
     return NextResponse.json({ user: decoded });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Invalid token" }, { status: 401 });
